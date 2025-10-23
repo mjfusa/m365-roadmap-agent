@@ -171,7 +171,7 @@ Output from the M365 Roadmap Agent displaying roadmap items details with an opti
 ![Output showing associated Message Center messages](./Images/RoadmapwithRelatedMessageCenterUpdate.png)  
 Output from the M365 Roadmap Agent displaying associated Message Center messages that reference the roadmap item.
 
-![Draft an email to the team regarding the upcoming changes in Copilot. Show road map items with an availability date within the next 90 days and the status rolling out or launched.](./Images/EmailInformingTeamOnUpcomingUpdatesPerRoadmapWithCopilot.png)
+![Draft an email to the team regarding the upcoming changes in Copilot. Show road map items with an availability date within the next 90 days and the status rolling out or launched.](./Images/EmailInformingTeamOnUpcomingUpdatesPerRoadmapWithCopilot.png)  
 Here we are drafting an email to inform the team about upcoming changes coming to M365 Copilot in the next 90 days. (Only one update is shown in the screenshot for brevity.)
 
 ### Key Files
