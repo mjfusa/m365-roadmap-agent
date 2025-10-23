@@ -1,0 +1,72 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.4",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "${id} : ${title}",
+      "size": "large",
+      "weight": "bolder",
+      "wrap": true,
+      "color": "${if(severity=='critical', 'attention',if(severity=='high', 'warning','accent'))}"
+    },
+    {
+      "type": "FactSet",
+      "facts": [
+        {
+          "title": "Category:",
+          "value": "${category}"
+        },
+        {
+          "title": "Severity:",
+          "value": "${severity}"
+        },
+        {
+          "title": "Start Date:",
+          "value": "${formatDateTime(startDateTime,'MMMM dd, yyyy')}"
+        },
+        {
+          "title": "End Date:",
+          "value": "${formatDateTime(endDateTime,'MMMM dd, yyyy')}"
+        },
+        {
+          "title": "Action Required By:",
+          "value": "${if(actionRequiredByDateTime,  formatDateTime(actionRequiredByDateTime,'MMMM dd, yyyy'), 'No action required')}"
+        },
+        {
+          "title": "Last Modified:",
+          "value": "${formatDateTime(lastModifiedDateTime,'MMMM dd, yyyy')}"
+        },
+        {
+          "title": "Major Change:",
+          "value": "${if(isMajorChange, 'Yes', 'No')}"
+        },
+        {
+          "title": "Has Attachments:",
+          "value": "${if(hasAttachments, 'Yes', 'No')}"
+        },
+        {
+          "title": "Platforms:",
+          "value": "${if(details[2].name=='Platforms',  details[2].value,'')}"
+        },
+        {
+          "title": "Tags:",
+          "value": "${if(tags[0]!='',  tags[0],'') + if(tags[1]!='', ', '+ tags[1],'') + if(tags[2]!='', ', '+ tags[2],'') + if(tags[3]!='', ', '+ tags[3],'') + if(tags[4]!='', ', '+ tags[4],'') + if(tags[5]!='', ', '+ tags[5],'') + if(tags[6]!='', ', '+ tags[6],'')}"
+        },
+        {
+          "title": "Services:",
+          "value": "${if(services[0]!='',  services[0],'') + if(services[1]!='', ', '+ services[1],'') + if(services[2]!='', ', '+ services[2],'') + if(services[3]!='', ', '+ services[3],'') + if(services[4]!='', ', '+ services[4],'') + if(services[5]!='', ', '+ services[5],'') + if(services[6]!='', ', '+ services[6],'')}"
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.OpenUrl",
+      "title": "Open in Message Center",
+      "url": "https://admin.microsoft.com/#/MessageCenter/:/messages/${id}",
+      "isEnabled": "${if(id, true, false)}"
+    }
+  ]
+}

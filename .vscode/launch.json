@@ -1,0 +1,35 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Preview Agent in Copilot (Edge)",
+            "type": "msedge",
+            "request": "launch",
+            "url": "https://copilot.microsoft.com/agents/${AGENT_ID}?developerId=${ENV_INFO_DEVELOPER_ID}&auth=2",
+            "presentation": {
+                "group": "remote",
+                "order": 1
+            },
+            "internalConsoleOptions": "neverOpen",
+            "runtimeArgs": [
+                "--remote-debugging-port=9222",
+                "--no-first-run"
+            ]
+        },
+        {
+            "name": "Preview Agent in Copilot (Chrome)",
+            "type": "chrome",
+            "request": "launch",
+            "url": "https://copilot.microsoft.com/agents/${AGENT_ID}?developerId=${ENV_INFO_DEVELOPER_ID}&auth=2",
+            "presentation": {
+                "group": "remote",
+                "order": 2
+            },
+            "internalConsoleOptions": "neverOpen",
+            "runtimeArgs": [
+                "--remote-debugging-port=9223",
+                "--no-first-run"
+            ]
+        }
+    ]
+}

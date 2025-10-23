@@ -1,0 +1,40 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.19/MicrosoftTeams.schema.json",
+    "manifestVersion": "1.19",
+    "version": "1.1.5",
+    "id": "${{TEAMS_APP_ID}}",
+    "developer": {
+        "name": "Mike Francis - Microsoft ABS",
+        "websiteUrl": "https://developer.microsoft.com/en-us/agents",
+        "privacyUrl": "https://www.microsoft.com/privacy/privacystatement",
+        "termsOfUseUrl": "https://www.example.com/termofuse"
+    },
+    "icons": {
+        "color": "roadmap192.png",
+        "outline": "outline.png"
+    },
+    "name": {
+        "short": "M365 Roadmap Agent",
+        "full": "M365 Roadmap Agent"
+    },
+    "description": {
+        "short": "Use AI to search and summarize M365 Roadmap and Admin Center messages",
+        "full": "Keep up with the latest Microsoft 365 Roadmap and Admin Center messages using AI. Search for messages using natural language and use generative AI to summarize and create comms to keep your organization informed regarding changes in Microsoft 365."
+    },
+    "accentColor": "#FFFFFF",
+    "copilotAgents": {
+        "declarativeAgents": [
+            {
+                "id": "declarativeAgent",
+                "file": "declarativeAgent.json"
+            }
+        ]
+    },
+    "permissions": [
+        "identity",
+        "messageTeamMembers"
+    ],
+    "validDomains": [
+        "teams.microsoft.com"
+    ]
+}

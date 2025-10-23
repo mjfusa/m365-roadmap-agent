@@ -1,0 +1,311 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Microsoft Graph API",
+    "version": "v1.0",
+    "description": "API to obtain message center messages including OAuth authentication"
+  },
+  "servers": [
+    {
+      "url": "https://graph.microsoft.com/v1.0"
+    }
+  ],
+  "paths": {
+    "/admin/serviceAnnouncement/messages": {
+      "get": {
+        "summary": "Get message center messages",
+        "description": "Retrieve the message center messages",
+        "operationId": "getMessages",
+        "parameters": [
+          {
+            "name": "$count",
+            "in": "query",
+            "description": "Total number of records returned",
+            "required": true,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          {
+            "name": "Prefer",
+            "in": "header",
+            "description": "Specifies the maximum number of items to return in a result set",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "odata.maxpagesize=5"
+            }
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "description": "Number of records to return",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "$skip",
+            "in": "query",
+            "description": "Number of records to skip",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "description": "Filter the results based on specific conditions. Use `contains(tolower(title),tolower('search term'))` to search within the title property for a specific term. For create time, use the 'startDateTime' property with a date format. For example, `startDateTime ge 2025-03-01T00:00:00Z` to filter messages created after March 1, 2025. For major change messages, use `isMajorChange eq true`. To combine filters, use `and` operator. For example, `contains(tolower(title),tolower('Copilot')) and startDateTime ge 2025-03-01T00:00:00Z`. For the 'Tags' field, here is an example of the a query segment for the tags field: tags/any(t: t eq 'New feature'). For the 'severity' field, you can filter by severity using `severity eq 'normal'` or `severity eq 'high'` or `severity eq 'critical'`. For the 'category' field, you can filter by category using `category eq 'stayInformed'` or `category eq 'planForChange'` or `category eq 'preventOrFixIssue'`. For the 'Services' field, here is an example of a query segment for the services field: services/any(s: contains(s, 'Copilot')).  When searching an message center update for roadmap ids, these are found in the 'details' field. Here is an example of a query segment for the details field, when searching for RoadmapIds: details/any(d: d/name eq 'RoadmapIds' and contains(d/value, '501107')). Note the 'name' property is used to specify the type of detail being searched, in this case 'RoadmapIds'. The 'value' property is then used to search for the specific roadmap id. RoadmapIds is case sensitive and must be used exactly as shown.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "roadmap_id_example": {
+                "value": "details/any(d: d/name eq 'RoadmapIds' and contains(d/value, '501107'))",
+                "description": "Filter for messages that contain a roadmap id equal to 501107"
+              },
+              "example1": {
+                "value": "contains(tolower(title),tolower('Microsoft 365'))",
+                "description": "Case insensitive search for messages containing 'Microsoft 365' in the title."
+              },
+              "example2": {
+                "value": "services/any(s: contains(s, 'Copilot'))",
+                "description": "Filter for services that contain 'Copilot'."
+              },
+              "example3": {
+                "value": "isMajorChange eq true",
+                "description": "Filter for major change messages."
+              },
+              "example4": {
+                "value": "tags/any(x:x eq 'New feature') and contains(tolower(title), tolower('Microsoft Teams'))",
+                "description": "Filter for messages tagged as 'New Feature' and messages regarding Microsoft Teams."
+              },
+              "example5": {
+                "value": "severity eq 'critical'",
+                "description": "Filter for 'Critical' messages."
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "@odata.context": {
+                      "type": "string",
+                      "description": "Context URL for the response data"
+                    },
+                    "@odata.count": {
+                      "type": "integer",
+                      "description": "Total number of records returned"
+                    },
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "body": {
+                            "type": "object",
+                            "properties": {
+                              "contentType": {
+                                "type": "string",
+                                "enum": [
+                                  "html",
+                                  "text"
+                                ]
+                              },
+                              "content": {
+                                "type": "string",
+                                "description": "HTML-encoded content string"
+                              }
+                            },
+                            "required": [
+                              "contentType",
+                              "content"
+                            ]
+                          },
+                          "tags": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "details": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string",
+                                  "description": "The name of the detail property (e.g., 'RoadmapIds')"
+                                },
+                                "value": {
+                                  "type": "string",
+                                  "description": "The value of the detail property"
+                                }
+                              }
+                            }
+                          },
+                          "services": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "enum": [
+                              "Microsoft 365 suite",
+                              "Exchange Online",
+                              "Microsoft 365 for the web",
+                              "Microsoft 365 apps",
+                              "Microsoft Purview",
+                              "Microsoft Copilot (Microsoft 365)",
+                              "Microsoft Copilot Chat",
+                              "Power Platform"
+                            ]
+                          },
+                          "category": {
+                            "type": "string",
+                            "enum": [
+                              "stayInformed",
+                              "planForChange",
+                              "preventOrFixIssue"
+                            ]
+                          },
+                          "severity": {
+                            "type": "string",
+                            "enum": [
+                              "normal",
+                              "high",
+                              "critical"
+                            ]
+                          },
+                          "startDateTime": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "lastModifiedDateTime": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "isMajorChange": {
+                            "type": "boolean"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient permissions. You need the Message Center Reader or the Global Admin role to access this agent.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        },
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Please check your authentication credentials.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        },
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        },
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "OAuth2": {
+        "type": "oauth2",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://login.microsoftonline.com/${{TEAMS_APP_TENANT_ID}}/oauth2/v2.0/authorize",
+            "tokenUrl": "https://login.microsoftonline.com/${{TEAMS_APP_TENANT_ID}}/oauth2/v2.0/token",
+            "refreshUrl": "https://login.microsoftonline.com/${{TEAMS_APP_TENANT_ID}}/oauth2/v2.0/token",
+            "scopes": {
+              "https://graph.microsoft.com/ServiceMessage.Read.All": "Access Microsoft Graph API"
+            }
+          }
+        }
+      }
+    }
+  }
+}
