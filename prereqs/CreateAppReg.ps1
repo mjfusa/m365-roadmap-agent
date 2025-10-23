@@ -27,7 +27,7 @@ catch {
     Exit 1
 }
 # Define application name and redirect URI
-$appName = "MessageCenterAgent-reg"
+$appName = "M365RoadmapAgent-reg"
 $redirectUri = 'https://teams.microsoft.com/api/platform/v1.0/oAuthRedirect'
 
 # check if the application already exists

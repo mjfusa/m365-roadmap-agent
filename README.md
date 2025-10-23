@@ -53,7 +53,7 @@ Steps to deploy the M365 Roadmap Agent using the Microsoft 365 Agents Toolkit (A
       .\CreateAppReg.ps1 
       ```
       
-      This will create an Entra app registration with the name **MessageCenterAgent-reg**. It will also output the **Application (client) ID** and **Client Secret**. You will need these values later in the deployment process. 
+      This will create an Entra app registration with the name **M365RoadmapAgent-reg**. It will also output the **Application (client) ID** and **Client Secret**. You will need these values later in the deployment process. 
       ![CreateAppReg.ps1](./Images/CreateAppReg.png)
 
 #### [Microsoft 365 Tenant Requirements](#microsoft-365-tenant-requirements)
