@@ -178,8 +178,7 @@ Here we are drafting an email to inform the team about upcoming changes coming t
 
 The following files are key to the implementation of the declarative agent:
 
-- **roadmap-openapi.json**: This file contains the OpenAPI specification for calling the Roadmap V2 API `https://www.microsoft.com/releasecommunications/api/v2` that the declarative agent will use to search and retrieve updates from the Microsoft 365 Admin Center. Note that the Roadmap V2 API is a public API and does not require any authentication. Additionally the API supports OData query parameters to filter and sort the results. Copilot leverages the descriptions in the OpenAPI specification to understand how to interact with the API and create the needed odata queries based on user prompts.
-
+- **roadmap-openapi.json**: This file contains the OpenAPI specification for calling the Roadmap V2 API `https://www.microsoft.com/releasecommunications/api/v2` that the declarative agent will use to search and retrieve updates from the Microsoft 365 Admin Center. Note that the Roadmap V2 API is a public API and does not require any authentication. Additionally the API supports OData query parameters to filter and sort the results. Copilot leverages the descriptions in the OpenAPI specification to understand how to interact with the API and create the needed odata queries based on user prompts.  
 - **declarativeCopilot.json**: This file contains the declarative agent configuration that defines the behavior and capabilities of the agent. No capabilities have been defined for this agent.
 - **manifest.json**: This file contains the Teams application manifest that defines metadata for the declarative agent.This is what is displayed in the Copilot agents store.
 - **m365agents.yml**: This file contains the M365 Agents Toolkit project configuration, including the OAuth2 registration and other settings. Note OAuth2 is needed only for to read Message Center messages.
