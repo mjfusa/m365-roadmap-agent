@@ -98,15 +98,6 @@ If you want to modify the M365 Roadmap Agent, you can do so by following the ste
 
 3. Install the [Microsoft 365 Agents Toolkit ](https://marketplace.visualstudio.com/items?itemName=TeamsDevApp.ms-teams-vscode-extension) extension for Visual Studio Code.
 
-4. Register an application with Entra (Azure AD) for the Teams app registration.
-   
-   1. In the `prereqs` folder, run the following command to register the application:
-      
-      ```bash
-      .\CreateAppReg.ps1 
-      ```
-      This will create an Entra app registration with the name **M365RoadmapAgent-reg**. It will output the **Application (client) ID**. You will need this value later in the deployment process if you want to configure additional OAuth2 settings.
-      ![CreateAppReg.ps1](./Images/CreateAppReg.png)
 
 ### Provision the Agent using the Microsoft 365 Agents Toolkit
 
