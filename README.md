@@ -103,9 +103,9 @@ If you want to modify the M365 Roadmap Agent, you can do so by following the ste
 
 The M365 Agents Toolkit for Visual Studio Code streamlines app registration and deployment to Microsoft Teams. It automates OAuth2.0 setup, securely manages client credentials, and eliminates the need to handle infrastructure, letting you focus on app development.
 
-1. Rename the file `.env.production.sample` to `.env.production` in the `env` folder of the project. This file will be populated with environment variables for the project for production release, including the client ID if additional OAuth2 authentication is needed.
+1. Rename the file `.env.production.sample` to `.env.production` in the `env` folder of the project. This file will be populated with environment variables for the project for production release.
 1. Using the M365 Agents Toolkit, in the LIFECYCLE section, select 'Provision'.
-3. Provide the client id if prompted for additional OAuth2 configuration. Note that the M365 Agents Toolkit will register the app in the Teams Developer Portal and update any necessary authentication variables in your .env file.
+3. Provide the client id if prompted for additional OAuth2 configuration. Note that the M365 Agents Toolkit will register the app in the Teams Developer Portal and update any necessary variables in your .env file.
 
 ## Use the M365 Roadmap Agent in Copilot
 
@@ -119,24 +119,7 @@ If you want to make the agent available to your entire organization, you can pub
 ## Architecture   
 ### Zero Code
    
-   The declarative agent is built using the Microsoft M365 Agents Toolkit for Visual Studio Code. It leverages the Microsoft Graph API to interact with the Microsoft 365 Admin Center and retrieve updates. Authentication is handled using OAuth2.0, and the agent is designed to work seamlessly with Microsoft 365 Copilot. The declarative agent is a zero-code solution, meaning you don't need to write any code to set it up or use it. The agent is designed to be easy to setup and requires no coding experience.
-
-
-### Authentication
-
-The implementation leverages the M365 Teams app infrastructure for authentication. The agent accesses the public Microsoft 365 Roadmap API which doesn't require authentication. See here: [Configure authentication for API plugins in agents](https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/api-plugin-authentication). Additionally, the Agents Toolkit for Visual Studio Code is used to provision the app registration and deploy the app to Microsoft Teams. This eliminates the need for direct Microsoft 365 registration using the [Teams Developer portal](https://dev.teams.microsoft.com/) and allows you to focus on building your app inside Visual Studio Code.
-
-To support the agent, the following step is required:
-
-1. Microsoft Entra App Registration
-2. Provision the app using the M365 Agents Toolkit. 
-
-Details of these steps are provided below.
-
-### Microsoft Entra App Registration
-
-To use the declarative agent, you need to register your app in the Entra portal. This app registration will be registered on the Teams Developer Portal. The app registration is required to register the agent with Microsoft Teams. The Teams developer portal provides a secure environment for managing your app's settings. 
-
+   The declarative agent is built using the Microsoft M365 Agents Toolkit for Visual Studio Code. It leverages the Microsoft 365 Roadmap API to interact with the Microsoft 365 Admin Center and retrieve updates. The declarative agent is a zero-code solution, meaning you don't need to write any code to set it up or use it. The agent is designed to be easy to setup and requires no coding experience.
 
 ### Prompting Guide
 
@@ -147,8 +130,8 @@ See the [Prompting Guide for the M365 Roadmap Agent](./suggested_prompts/prompti
 ![Update displayed with adaptive card](./Images/RoadmapWithAdaptiveCard.png)  
 Output from the M365 Roadmap Agent displaying roadmap items details with an option to open the item directly in the Microsoft 365 Roadmap site.
 
-![Output showing roadmap item details](./Images/RoadmapwithRelatedMessageCenterUpdate.png)  
-Output from the M365 Roadmap Agent displaying roadmap item details with additional information.
+<!-- ![Output showing roadmap item details](./Images/RoadmapwithRelatedMessageCenterUpdate.png)  
+Output from the M365 Roadmap Agent displaying roadmap item details with additional information. -->
 
 ![Draft an email to the team regarding the upcoming changes in Copilot. Show road map items with an availability date within the next 90 days and the status rolling out or launched.](./Images/EmailInformingTeamOnUpcomingUpdatesPerRoadmapWithCopilot.png)  
 Here we are drafting an email to inform the team about upcoming changes coming to M365 Copilot in the next 90 days. (Only one update is shown in the screenshot for brevity.)
