@@ -1,6 +1,6 @@
-# Prompting Guide for Message Center Agent
+# Prompting Guide for M365 Roadmap Agent
 
-Below are concise natural-language query patterns that can be used with the Message Center Agent. Use these patterns as templates you can paste into the Message Center Agent.
+Below are concise natural-language query patterns that can be used with the M365 Roadmap Agent. Use these patterns as templates you can paste into the M365 Roadmap Agent.
 
 ## Overview
 - value[] (message object) — per-property patterns

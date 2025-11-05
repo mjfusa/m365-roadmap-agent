@@ -18,8 +18,8 @@
         "full": "M365 Roadmap Agent"
     },
     "description": {
-        "short": "Use AI to search and summarize M365 Roadmap and Admin Center messages",
-        "full": "Keep up with the latest Microsoft 365 Roadmap and Admin Center messages using AI. Search for messages using natural language and use generative AI to summarize and create comms to keep your organization informed regarding changes in Microsoft 365."
+        "short": "Use AI to search and summarize Microsoft 365 Roadmap items",
+        "full": "Keep up with the latest Microsoft 365 Roadmap using AI. Search for roadmap items using natural language and use generative AI to summarize and create communications to keep your organization informed regarding upcoming changes and features in Microsoft 365."
     },
     "accentColor": "#FFFFFF",
     "copilotAgents": {

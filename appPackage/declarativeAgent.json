@@ -1,8 +1,8 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.2/schema.json",
-  "version": "v1.3",
+  "version": "v1.2",
   "name": "M365 Roadmap Agent",
-  "description": "This agent helps you search and summarize Microsoft 365 Roadmap and Admin Center messages using natural language. Works with the M365Roadmap OData API to provide related Microsoft 365 Roadmap information.",
+  "description": "This agent helps you search and summarize Microsoft 365 Roadmap items using natural language. Works with the M365 Roadmap OData API to provide Microsoft 365 Roadmap information.",
   "instructions": "$[file('instructions.md')]",
   "actions": [
     {
@@ -13,27 +13,27 @@
   "conversation_starters": [
     {
       "title": "Search for Microsoft 365 Copilot Updates",
-      "text": "Show recent updates regarding Copilot published in the last two weeks"
+      "text": "Show recent roadmap items regarding Copilot published in the last two weeks"
     },
     {
       "title": "Search by description",
-      "text": "Show information with 'security' in the description published in the last month"
+      "text": "Show roadmap items with 'security' in the description published in the last month"
     },
     {
-      "title": "Inform the team regarding upcoming changes in Microsoft 365 Copilot",
-      "text": "Draft an email to the team regarding the upcoming changes in Copilot. Show road map items with an availability date within the next 90 days and the status rolling out or launched."
+      "title": "Find Roadmap Items for Specific Cloud Instances",
+      "text": "Show roadmap items available for GCC High and DoD cloud instances with General Availability in the next month."
     },
     {
       "title": "Find Recent 'In Development' Roadmap Items",
       "text": "Show the top 10 recent Copilot roadmap items in development created in the last 30 days."
     },
     {
-      "title": "Get Critical Updates",
-      "text": "Show all critical messages in Message Center."
+      "title": "Explore Preview Features",
+      "text": "Show roadmap items related to Purview with preview availability dates this month."
     },
     {
-      "title": "Find out about new AI capabilities in Microsoft 365",
-      "text": "Which updates introduce new AI capabilities in Microsoft 365?"
+      "title": "Find Cross-Product Integrations",
+      "text": "Show roadmap items that mention multiple Microsoft 365 products like Copilot, Teams and SharePoint"
     }
   ]
 }

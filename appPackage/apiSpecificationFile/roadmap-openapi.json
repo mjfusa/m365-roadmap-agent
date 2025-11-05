@@ -211,10 +211,10 @@
         "name": "$count",
         "in": "query",
         "description": "Include total count of items in response",
-        "required": false,
+        "required": true,
         "schema": {
           "type": "boolean",
-          "default": false
+          "default": true
         }
       }
     },
@@ -242,7 +242,12 @@
           },
           "status": {
             "type": "string",
-            "description": "Current development status of the roadmap item"
+            "description": "Current development status of the roadmap item",
+            "enum": [
+              "In development",
+              "Rolling out",
+              "Launched"
+            ]
           },
           "modified": {
             "type": "string",

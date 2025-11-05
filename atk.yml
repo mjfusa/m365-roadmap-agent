@@ -3,8 +3,8 @@ projectId: 1bdc0422-b7fe-40b4-abf5-cfed3fb395ed
 provision:
   - uses: agent/register
     with:
-      name: Message Center Agent${{APP_NAME_SUFFIX}}
-      description: "Keep up with the latest Microsoft 365 Admin Center messages using AI"
+      name: M365 Roadmap Agent${{APP_NAME_SUFFIX}}
+      description: "Keep up with the latest Microsoft 365 Roadmap using AI"
       instructions: ./appPackage/instruction.md
       agentIconPath: ./appPackage/color.png
       capabilities: ./appPackage/ai-plugin.json
@@ -12,14 +12,6 @@ provision:
     writeToEnvironmentFile:
       agentId: AGENT_ID
       endpoint: AGENT_ENDPOINT
-
-  - uses: oauth/register
-    with:
-      name: Message Center Agent OAuth
-      appId: ${{TEAMS_APP_ID}}
-      apiSpecPath: ./appPackage/apiSpecificationFile/openapi.json
-    writeToEnvironmentFile:
-      configurationId: OAUTH2_REGISTRATION_ID
 
 package:
   - uses: agent/package
