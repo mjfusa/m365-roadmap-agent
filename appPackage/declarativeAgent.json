@@ -28,8 +28,8 @@
       "text": "Show the top 10 recent Copilot roadmap items in development created in the last 30 days."
     },
     {
-      "title": "Explore Preview Features",
-      "text": "Show roadmap items related to Purview with preview availability dates this month."
+      "title": "Explore Copilot agent and Purview Roadmap Items",
+      "text": "Are there any roadmap items that mention agent in the description are shipping in the next 90 days and mention Purview or Copilot in the product field?"
     },
     {
       "title": "Find Cross-Product Integrations",
