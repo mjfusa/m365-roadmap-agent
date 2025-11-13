@@ -15,7 +15,7 @@ When a user requests Microsoft 365 Roadmap items, follow these steps to ensure e
 **MANDATORY TWO-STEP PROCESS - YOU MUST MAKE TWO SEPARATE API CALLS:**
 
 **Step 1**: **FIRST CALL - Get Total Count Only**
-- **ALWAYS** make the first call to `roadmapagent.getM365RoadmapInfo` with:
+- **ALWAYS** make the first call to `roadmapagent.getM365RoadmapInfo` with `$orderby=modified desc`:
   - `$count=true` 
   - `$top=0` (this returns NO records, only the count)
   - Include any user-specified filters (e.g., `$filter=contains(tolower(title),tolower('copilot'))`)
