@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Microsoft 365 roadmap provides estimated release dates and descriptions for commercial features. The M365 Roadmap Agent allows you to search the [**Microsoft 365 Roadmap**](https://microsoft.com/microsoft-365/roadmap) updates with Copilot chat using natural language prompts.
+The Microsoft 365 roadmap provides estimated release dates and descriptions for commercial features. The M365 Roadmap Agent allows you to search the [**Microsoft 365 Roadmap**](https://microsoft.com/microsoft-365/roadmap) updates with Copilot chat using natural language prompts. 
   
 ![M365 Roadmap Agent Starter Prompts](./Images/RoadMapStarterPrompts.png)
 
@@ -170,3 +170,6 @@ Note: This role is required when using the M365 Agents Toolkit to provision the 
 ## Required Roles - Agent Usage
 
 The M365 Roadmap Agent accesses public roadmap information and does not require any special admin roles for usage. Any user with access to Microsoft 365 Copilot can use this agent.
+
+## More Agents
+For an agent that searches Message Center messages along with related M365 Roadmap items. See the https://github.com/mjfusa/Message-Center-Agent (authentication and admin roles required).
