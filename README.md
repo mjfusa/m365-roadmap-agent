@@ -98,6 +98,22 @@ If you want to modify the M365 Roadmap Agent, you can do so by following the ste
 
 3. Install the [Microsoft 365 Agents Toolkit ](https://marketplace.visualstudio.com/items?itemName=TeamsDevApp.ms-teams-vscode-extension) extension for Visual Studio Code.
 
+4. Compile and validate the OpenAPI specification using TypeSpec. See the [TypeSpec Development](#typespec-development) section below for more information.
+
+The OpenAPI specification (`appPackage/apiSpecificationFile/roadmap-openapi.json`) is generated from TypeSpec source files located in the `tsp/` directory.
+
+To regenerate the OpenAPI specification after making changes:
+
+```bash
+npm run tsp:compile
+```
+
+To validate the generated specification:
+
+```bash
+npm test
+```
+
 
 ### Provision the Agent using the Microsoft 365 Agents Toolkit
 
@@ -157,22 +173,6 @@ This project uses **TypeSpec** to define the API specification. TypeSpec provide
 - **Reusability**: Share models, parameters, and components across endpoints
 - **Better Organization**: Modular structure with clear separation of concerns
 - **Automatic Generation**: Generate OpenAPI, JSON Schema, and other formats from TypeSpec
-
-#### Quick Start
-
-The OpenAPI specification (`appPackage/apiSpecificationFile/roadmap-openapi.json`) is generated from TypeSpec source files located in the `tsp/` directory.
-
-To regenerate the OpenAPI specification after making changes:
-
-```bash
-npm run tsp:compile
-```
-
-To validate the generated specification:
-
-```bash
-npm test
-```
 
 For detailed information on modifying the API specification, see the [TypeSpec Development Guide](./docs/TYPESPEC_GUIDE.md).
 
