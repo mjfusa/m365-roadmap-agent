@@ -6,6 +6,10 @@ appPackage/build
 
 # dependencies
 node_modules/
+package-lock.json
+
+# TypeSpec output
+tsp-output/
 
 # misc
 .env

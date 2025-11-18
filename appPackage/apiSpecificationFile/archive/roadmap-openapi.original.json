@@ -1,0 +1,428 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Microsoft 365 Roadmap API",
+    "description": "API for accessing Microsoft 365 roadmap items with OData query capabilities. Use 'created' field for date filtering (not 'createdDateTime').",
+    "version": "v2",
+    "contact": {
+      "name": "Microsoft 365 Roadmap",
+      "url": "https://www.microsoft.com/microsoft-365/roadmap"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://www.microsoft.com/releasecommunications/api/v2",
+      "description": "Microsoft 365 Roadmap API"
+    }
+  ],
+  "paths": {
+    "/m365": {
+      "get": {
+        "summary": "Get Microsoft 365 roadmap items",
+        "description": "Retrieve roadmap items with optional filtering, sorting, and pagination. Always use 'created' field for date operations, not 'createdDateTime'.",
+        "operationId": "getM365RoadmapInfo",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/FilterParameter"
+          },
+          {
+            "$ref": "#/components/parameters/OrderByParameter"
+          },
+          {
+            "$ref": "#/components/parameters/TopParameter"
+          },
+          {
+            "$ref": "#/components/parameters/SkipParameter"
+          },
+          {
+            "$ref": "#/components/parameters/CountParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with roadmap items",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoadmapResponse"
+                },
+                "examples": {
+                  "copilot_items": {
+                    "summary": "Recent Copilot roadmap items",
+                    "description": "Example response for Copilot items from the last week",
+                    "value": {
+                      "value": [
+                        {
+                          "id": 476488,
+                          "title": "Microsoft Teams: Ability to separate out the Townhall attendee invites",
+                          "created": "2025-01-23T00:15:18.0000000Z",
+                          "description": "This backend change will now address the 'separation of attendee' invites from the events crew.",
+                          "cloudInstances": [
+                            "Worldwide (Standard Multi-Tenant)",
+                            "GCC"
+                          ],
+                          "platforms": [
+                            "Desktop",
+                            "Mac"
+                          ],
+                          "releaseRings": [
+                            "General Availability",
+                            "Targeted Release"
+                          ],
+                          "products": [
+                            "Microsoft Teams"
+                          ],
+                          "status": "In development",
+                          "generalAvailabilityDate": "2026-03",
+                          "availabilities": [
+                            {
+                              "ring": "General Availability",
+                              "year": 2026,
+                              "month": "March"
+                            }
+                          ]
+                        }
+                      ],
+                      "@odata.count": 1,
+                      "@odata.nextLink": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid query parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "FilterParameter": {
+        "name": "$filter",
+        "in": "query",
+        "description": "OData filter expression. IMPORTANT: Use 'created' field for created date filtering (not 'createdDateTime'). Use the 'modified' field for last modified date filtering (not 'lastModifiedDateTime'). Supports contains(), tolower(), and date comparisons. Filter the results based on specific conditions. Use `contains(tolower(title),tolower('search term'))` to search within the title property for a specific term. For creation date filtering, use the 'created' property with ISO 8601 date format. For example, `created ge 2025-03-01T00:00:00Z` to filter roadmap items created after March 1, 2025. To combine filters, use `and` operator. For example, `contains(tolower(title),tolower('Teams')) and created ge 2025-03-01T00:00:00Z`. For the 'status' field, you can filter by status using `status eq 'In development'`, `status eq 'Rolling out'`, `status eq 'Launched'`, `status eq 'Preview'`, `status eq 'Planned'`, or `status eq 'Cancelled'`. For array fields, use the any() operator: For 'platforms' array, use `platforms/any(p: contains(tolower(p), 'desktop'))` to find items available on desktop platform, or `platforms/any(p: p eq 'Web')` for exact platform match. For 'products' array, use `products/any(p: contains(tolower(p), 'teams'))` to search within product names. For 'releaseRings' array, use `releaseRings/any(r: contains(tolower(r), 'general'))` to filter by release ring. For 'cloudInstances' array, use `cloudInstances/any(c: contains(tolower(c), 'gcc'))` to filter by cloud instance. For 'availabilities' array, use nested object filtering: `availabilities/any(a: a/ring eq 'General Availability')` to filter by release ring, `availabilities/any(a: a/year eq 2026)` to filter by year, or `availabilities/any(a: a/month eq 'March')` to filter by month. Date range filtering example: `created ge 2025-01-01T00:00:00Z and created le 2025-12-31T23:59:59Z`. For complex date ranges spanning multiple months and years, ALWAYS use proper parentheses grouping: `(availabilities/any(a: a/year eq 2025 and (a/month eq 'November' or a/month eq 'December')) or availabilities/any(a: a/year eq 2026 and a/month eq 'January'))`. Complex example: `contains(tolower(title), 'teams') and platforms/any(p: p eq 'Desktop') and (availabilities/any(a: a/year eq 2025 and (a/month eq 'November' or a/month eq 'December')) or availabilities/any(a: a/year eq 2026 and a/month eq 'January'))`. To find roadmap items that are 'major changes', use contains(tolower(title), 'major') or contains(tolower(title), 'breaking') or contains(tolower(description), 'major') or contains(tolower(description), 'significant'). Do not use '$filter=isMajorChange+eq+true' as it is not supported by the API.",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "examples": {
+          "teams_items": {
+            "summary": "Teams items",
+            "description": "Find roadmap items containing 'teams' in title",
+            "value": "contains(tolower(title), 'teams')"
+          },
+          "recent_items": {
+            "summary": "Recent items (last 30 days)",
+            "description": "Items created in the last 30 days",
+            "value": "created ge 2025-09-21T00:00:00Z"
+          },
+          "desktop_platform": {
+            "summary": "Desktop platform items",
+            "description": "Items available on desktop platform",
+            "value": "platforms/any(p: p eq 'Desktop')"
+          },
+          "availability_2026": {
+            "summary": "Items available in 2026",
+            "description": "Items with availability in 2026",
+            "value": "availabilities/any(a: a/year eq 2026)"
+          },
+          "complex_filter": {
+            "summary": "Complex multi-criteria filter",
+            "description": "Teams items on desktop available in 2026",
+            "value": "contains(tolower(title), 'teams') and platforms/any(p: p eq 'Desktop') and availabilities/any(a: a/year eq 2026)"
+          },
+          "major_change_variations": {
+            "summary": "Find roadmap items that are major changes",
+            "description": "Find roadmap items that are major changes using various keywords",
+            "value": "contains(tolower(title), 'major') or contains(tolower(title), 'breaking') or contains(tolower(description), 'major change') or contains(tolower(description), 'significant update')"
+          },
+          "complex_date_range": {
+            "summary": "Complex multi-month date range filter",
+            "description": "Items available in November-December 2025 or January 2026",
+            "value": "(availabilities/any(a: a/year eq 2025 and (a/month eq 'November' or a/month eq 'December')) or availabilities/any(a: a/year eq 2026 and a/month eq 'January'))"
+          },
+          "full_complex_example": {
+            "summary": "Complete example with products, keywords, and date range",
+            "description": "SharePoint/Viva/admin items mentioning 'agent' available November 2025 - January 2026",
+            "value": "(products/any(p: contains(tolower(p), 'sharepoint')) or products/any(p: contains(tolower(p), 'viva')) or products/any(p: contains(tolower(p), 'admin'))) and contains(tolower(description), 'agent') and (availabilities/any(a: a/year eq 2025 and (a/month eq 'November' or a/month eq 'December')) or availabilities/any(a: a/year eq 2026 and a/month eq 'January'))"
+          }
+        }
+      },
+      "OrderByParameter": {
+        "name": "$orderby",
+        "in": "query",
+        "description": "Order results by specified field. Use 'created' for date ordering (not 'createdDateTime').",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "examples": {
+          "newest_first": {
+            "summary": "Newest items first",
+            "description": "Order by creation date, newest first",
+            "value": "created desc"
+          },
+          "oldest_first": {
+            "summary": "Oldest items first",
+            "description": "Order by creation date, oldest first",
+            "value": "created asc"
+          },
+          "title_alphabetical": {
+            "summary": "Alphabetical by title",
+            "description": "Order alphabetically by title",
+            "value": "title asc"
+          }
+        }
+      },
+      "TopParameter": {
+        "name": "$top",
+        "in": "query",
+        "description": "Number of items to return (default: 10, max: 100)",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 10
+        }
+      },
+      "SkipParameter": {
+        "name": "$skip",
+        "in": "query",
+        "description": "Number of items to skip for pagination",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        }
+      },
+      "CountParameter": {
+        "name": "$count",
+        "in": "query",
+        "description": "Include total count of items in response",
+        "required": true,
+        "schema": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "schemas": {
+      "RoadmapItem": {
+        "type": "object",
+        "description": "A Microsoft 365 roadmap item with details about new features and updates",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Unique identifier for the roadmap item"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the roadmap item"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation date and time of the roadmap item (ISO 8601 format). Use this field for date filtering, not 'createdDateTime'."
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the roadmap item"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current development status of the roadmap item",
+            "enum": [
+              "In development",
+              "Rolling out",
+              "Launched"
+            ]
+          },
+          "modified": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last modification date and time (ISO 8601 format)"
+          },
+          "generalAvailabilityDate": {
+            "type": "string",
+            "description": "General availability date in YYYY-MM format",
+            "pattern": "^\\d{4}-\\d{2}$",
+            "nullable": true
+          },
+          "previewAvailabilityDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Preview availability date (ISO 8601 format)",
+            "nullable": true
+          },
+          "locale": {
+            "type": "string",
+            "description": "Locale information",
+            "nullable": true
+          },
+          "platforms": {
+            "type": "array",
+            "description": "Supported platforms for this feature",
+            "items": {
+              "type": "string"
+            }
+          },
+          "products": {
+            "type": "array",
+            "description": "Microsoft 365 products associated with this roadmap item",
+            "items": {
+              "type": "string"
+            }
+          },
+          "releaseRings": {
+            "type": "array",
+            "description": "Release rings for this roadmap item",
+            "items": {
+              "type": "string"
+            }
+          },
+          "cloudInstances": {
+            "type": "array",
+            "description": "Cloud deployment instances where this feature is available",
+            "items": {
+              "type": "string"
+            }
+          },
+          "moreInfoUrls": {
+            "type": "array",
+            "description": "Additional information URLs related to this roadmap item",
+            "items": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "availabilities": {
+            "type": "array",
+            "description": "Release availability information with timing details for different release rings",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ring": {
+                  "type": "string",
+                  "description": "Release ring for this availability"
+                },
+                "year": {
+                  "type": "integer",
+                  "description": "Year of availability",
+                  "minimum": 2020,
+                  "maximum": 2030
+                },
+                "month": {
+                  "type": "string",
+                  "description": "Month of availability"
+                }
+              },
+              "required": [
+                "ring",
+                "year",
+                "month"
+              ]
+            }
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "created",
+          "description",
+          "status"
+        ]
+      },
+      "RoadmapResponse": {
+        "type": "object",
+        "description": "Response containing roadmap items with OData metadata",
+        "properties": {
+          "value": {
+            "type": "array",
+            "description": "Array of roadmap items",
+            "items": {
+              "$ref": "#/components/schemas/RoadmapItem"
+            }
+          },
+          "@odata.count": {
+            "type": "integer",
+            "description": "Total count of items (when $count=true is specified)"
+          },
+          "@odata.nextLink": {
+            "type": "string",
+            "description": "URL for next page of results (for pagination)",
+            "nullable": true
+          },
+          "@odata.context": {
+            "type": "string",
+            "description": "OData context URL"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "description": "Error response structure",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code"
+              },
+              "message": {
+                "type": "string",
+                "description": "Error message"
+              },
+              "details": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ]
+          }
+        },
+        "required": [
+          "error"
+        ]
+      }
+    }
+  }
+}

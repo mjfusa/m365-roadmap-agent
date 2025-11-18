@@ -140,11 +140,53 @@ Here we are drafting an email to inform the team about upcoming changes coming t
 
 The following files are key to the implementation of the declarative agent:
 
-- **roadmap-openapi.json**: This file contains the OpenAPI specification for calling the Roadmap V2 API `https://www.microsoft.com/releasecommunications/api/v2` that the declarative agent will use to search and retrieve updates from the Microsoft 365 Roadmap. Note that the Roadmap V2 API is a public API and does not require any authentication. Additionally the API supports OData query parameters to filter and sort the results. Copilot leverages the descriptions in the OpenAPI specification to understand how to interact with the API and create the needed odata queries based on user prompts.  
+- **roadmap-openapi.json**: This file contains the OpenAPI specification for calling the Roadmap V2 API `https://www.microsoft.com/releasecommunications/api/v2` that the declarative agent will use to search and retrieve updates from the Microsoft 365 Roadmap. **This file is now generated from TypeSpec** - see the [TypeSpec Development](#typespec-development) section below for more information. Note that the Roadmap V2 API is a public API and does not require any authentication. Additionally the API supports OData query parameters to filter and sort the results. Copilot leverages the descriptions in the OpenAPI specification to understand how to interact with the API and create the needed odata queries based on user prompts.  
 - **declarativeAgent.json**: This file contains the declarative agent configuration that defines the behavior and capabilities of the agent.
 - **manifest.json**: This file contains the Teams application manifest that defines metadata for the declarative agent. This is what is displayed in the Copilot agents store.
 - **m365agents.yml**: This file contains the M365 Agents Toolkit project configuration and other settings.
 - **.env.production**: This file contains environment variables for the project for production release.
+
+### TypeSpec Development
+
+This project uses **TypeSpec** to define the API specification. TypeSpec provides a type-safe, maintainable way to define APIs that automatically generates OpenAPI specifications.
+
+#### Why TypeSpec?
+
+- **Type Safety**: Catch errors at compile time with strong typing
+- **Maintainability**: Single source of truth for API definitions
+- **Reusability**: Share models, parameters, and components across endpoints
+- **Better Organization**: Modular structure with clear separation of concerns
+- **Automatic Generation**: Generate OpenAPI, JSON Schema, and other formats from TypeSpec
+
+#### Quick Start
+
+The OpenAPI specification (`appPackage/apiSpecificationFile/roadmap-openapi.json`) is generated from TypeSpec source files located in the `tsp/` directory.
+
+To regenerate the OpenAPI specification after making changes:
+
+```bash
+npm run tsp:compile
+```
+
+To validate the generated specification:
+
+```bash
+npm test
+```
+
+For detailed information on modifying the API specification, see the [TypeSpec Development Guide](./docs/TYPESPEC_GUIDE.md).
+
+#### TypeSpec Project Structure
+
+```
+tsp/
+├── main.tsp              # Service configuration and entry point
+├── models/               # Data models (RoadmapItem, responses, errors)
+├── routes/               # API endpoints (GET /m365)
+└── parameters/           # Reusable parameters (OData query params)
+```
+
+For a complete guide on working with TypeSpec, including how to add fields, modify parameters, and add examples, see [docs/TYPESPEC_GUIDE.md](./docs/TYPESPEC_GUIDE.md).
 
 ## [Required Roles](#required-roles)
 
