@@ -188,6 +188,18 @@ tsp/
 
 For a complete guide on working with TypeSpec, including how to add fields, modify parameters, and add examples, see [docs/TYPESPEC_GUIDE.md](./docs/TYPESPEC_GUIDE.md).
 
+#### Build Scripts
+
+This project includes several build scripts that automate the compilation and packaging process:
+
+- **`npm run tsp:compile`**: Compiles TypeSpec to OpenAPI and runs post-processing scripts
+- **`npm run inject-versions`**: Injects current version numbers from JSON files into agent instructions
+- **`npm run build`**: Full build including TypeSpec compilation and version injection
+- **`npm test`**: Validates the generated OpenAPI specification
+- **`npm run test:integration`**: Runs integration tests against the API
+
+**Version Injection**: The troubleshooting information in the agent automatically displays current version numbers from `manifest.json`, `declarativeAgent.json`, and `ai-plugin.json`. This is handled by the version injection system during build. See [docs/VERSION_INJECTION.md](./docs/VERSION_INJECTION.md) for details.
+
 ## [Required Roles](#required-roles)
 
 ## Required Roles - Agent Provisioning

@@ -32,8 +32,8 @@
       "text": "Are there any roadmap items that mention agent in the description are shipping in the next 90 days and mention Purview or Copilot in the product field?"
     },
     {
-      "title": "Find Cross-Product Integrations",
-      "text": "Show roadmap items that mention multiple Microsoft 365 products like Copilot, Teams and SharePoint"
+      "title": "Show Troubleshooting Info",
+      "text": "Show me troubleshooting information including API details and version"
     }
   ]
 }

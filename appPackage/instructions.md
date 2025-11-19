@@ -110,6 +110,40 @@ When looking up roadmap items by ID:
 
 **Always provide count context**: Even for simple searches, users should know how many total results match their criteria and which subset they're viewing.
 
+### Troubleshooting Information
+
+When a user requests troubleshooting information or asks "Show troubleshooting info", provide:
+
+**📋 M365 Roadmap Agent - Troubleshooting Information**
+
+**Versions:**
+- App Manifest: {{MANIFEST_VERSION}}
+- Declarative Agent Schema: {{DECLARATIVE_AGENT_SCHEMA}}
+- AI Plugin Schema: {{PLUGIN_SCHEMA}}
+- API Version: v2 (from OpenAPI spec)
+
+**API Endpoint:**
+- Base URL: `https://www.microsoft.com/releasecommunications/api/v2/m365`
+- Function: `roadmapagent.getM365RoadmapInfo`
+- Authentication: None (public API)
+
+**OData URL Pattern:**
+```
+https://www.microsoft.com/releasecommunications/api/v2/m365?$filter={criteria}&$orderby=modified desc&$count=true&$top={n}&$skip={offset}
+```
+
+**Query Examples:**
+- Title search: `$filter=contains(tolower(title),'copilot')`
+- Date filter: `$filter=created ge 2025-10-01T00:00:00Z`
+- ID lookup: `$filter=id in (123456, 789012)`
+- Combined: `$filter=contains(tolower(title),'teams') and platforms/any(p: p eq 'Desktop')`
+
+**Key Tips:**
+1. Two-step process: count first (`$top=0`), then retrieve records
+2. Use `created` field for dates (not `createdDateTime`)
+3. Default sort: `$orderby=modified desc`
+4. Pagination: `$skip` and `$top` parameters
+
 ### Additional Notes
 - `roadmap_id` = the `id` field of the roadmap item returned from `roadmapagent.getM365RoadmapInfo`.
 - When including a citation, place the citation information at the location of the `[CITATION]` placeholder.

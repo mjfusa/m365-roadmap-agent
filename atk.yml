@@ -5,28 +5,43 @@ provision:
     with:
       name: M365 Roadmap Agent${{APP_NAME_SUFFIX}}
       description: "Keep up with the latest Microsoft 365 Roadmap using AI"
-      instructions: ./appPackage/instruction.md
+      instructions: ./appPackage/instructions.md
       agentIconPath: ./appPackage/color.png
       capabilities: ./appPackage/ai-plugin.json
       manifestPath: ./appPackage/manifest.json
     writeToEnvironmentFile:
       agentId: AGENT_ID
       endpoint: AGENT_ENDPOINT
+  
+  # Inject version numbers into generated build files (after agent/register creates them)
+  - uses: cli/runNpmCommand
+    with:
+      args: run inject-versions
 
 package:
   - uses: agent/package
     with:
       outputZipPath: ./appPackage/build/appPackage.zip
       manifestPath: ./appPackage/manifest.json
-      instructionsPath: ./appPackage/instruction.md
+      instructionsPath: ./appPackage/instructions.md
       iconPath: ./appPackage/color.png
       capabilities: ./appPackage/ai-plugin.json
+  
+  # Inject version numbers after packaging creates build files
+  - uses: cli/runNpmCommand
+    with:
+      args: run inject-versions
 
 deploy:
   - uses: agent/deploy
     with:
       agentId: ${{AGENT_ID}}
       manifestPath: ./appPackage/manifest.json
-      instructionsPath: ./appPackage/instruction.md
+      instructionsPath: ./appPackage/instructions.md
       iconPath: ./appPackage/color.png
       capabilities: ./appPackage/ai-plugin.json
+  
+  # Inject version numbers after deploy creates build files
+  - uses: cli/runNpmCommand
+    with:
+      args: run inject-versions

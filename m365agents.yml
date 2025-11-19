@@ -17,13 +17,24 @@ provision:
     writeToEnvironmentFile:
       teamsAppId: TEAMS_APP_ID
 
-  # Build app package with latest env value
+  # Inject version numbers into source file (temporarily for build)
+  - uses: cli/runNpmCommand
+    with:
+      args: run inject-versions
+
+  # Build app package with injected versions
   - uses: teamsApp/zipAppPackage
     with:
       # Path to manifest template
       manifestPath: ./appPackage/manifest.json
       outputZipPath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
       outputFolder: ./appPackage/build
+  
+  # Restore placeholders in source file for version control
+  - uses: cli/runNpmCommand
+    with:
+      args: run restore-placeholders
+  
   # Validate app package using validation rules
   - uses: teamsApp/validateAppPackage
     with:
@@ -49,6 +60,11 @@ provision:
 
 # Triggered when 'teamsapp publish' is executed
 publish:
+  # Inject version numbers into build files
+  - uses: cli/runNpmCommand
+    with:
+      args: run inject-versions
+
   # Build app package with latest env value
   - uses: teamsApp/zipAppPackage
     with:
@@ -82,13 +98,24 @@ projectId: 2f7a1023-f6ab-4f10-a52c-f4ce996f2e9c
 
 # Triggered when 'teamsapp deploy' is executed
 deploy:
-  # Build app package with latest env value
+  # Inject version numbers into source file (temporarily for build)
+  - uses: cli/runNpmCommand
+    with:
+      args: run inject-versions
+
+  # Build app package with injected versions
   - uses: teamsApp/zipAppPackage
     with:
       # Path to manifest template
       manifestPath: ./appPackage/manifest.json
       outputZipPath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
       outputFolder: ./appPackage/build
+  
+  # Restore placeholders in source file for version control
+  - uses: cli/runNpmCommand
+    with:
+      args: run restore-placeholders
+  
   # Validate app package using validation rules
   - uses: teamsApp/validateAppPackage
     with:

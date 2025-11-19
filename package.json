@@ -6,11 +6,13 @@
     "tsp:compile": "tsp compile tsp && node scripts/fix-metadata.js && node scripts/add-examples.js",
     "tsp:watch": "tsp compile tsp --watch",
     "tsp:format": "tsp format tsp/**/*.tsp",
+    "inject-versions": "node scripts/inject-versions.js",
+    "restore-placeholders": "node scripts/restore-placeholders.js",
     "test": "node tests/validate-openapi.js",
     "test:integration": "node tests/integration-test.js",
     "test:all": "npm test && npm run test:integration",
-    "prebuild": "npm run tsp:compile",
-    "build": "npm run tsp:compile"
+    "prebuild": "npm run tsp:compile && npm run inject-versions",
+    "build": "npm run tsp:compile && npm run inject-versions"
   },
   "devDependencies": {
     "@typespec/compiler": "^0.62.0",
